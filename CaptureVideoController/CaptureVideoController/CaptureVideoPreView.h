@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface CaptureVideoPreView : UIView
+
+@property (nonatomic, retain) AVCaptureSession *captureSession;
 
 @end

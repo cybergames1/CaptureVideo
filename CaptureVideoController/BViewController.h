@@ -10,4 +10,6 @@
 
 @interface BViewController : UIViewController
 
+@property (nonatomic, retain) NSURL * fileURL;
+
 @end

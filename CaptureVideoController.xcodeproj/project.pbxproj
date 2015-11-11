@@ -15,6 +15,17 @@
 		DC37FE9E1BF10129002DC944 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC37FE9C1BF10129002DC944 /* LaunchScreen.storyboard */; };
 		DC37FEA91BF1012A002DC944 /* CaptureVideoControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC37FEA81BF1012A002DC944 /* CaptureVideoControllerTests.m */; };
 		DC37FEB41BF1012A002DC944 /* CaptureVideoControllerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC37FEB31BF1012A002DC944 /* CaptureVideoControllerUITests.m */; };
+		DC37FEC41BF10186002DC944 /* CaptureVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC37FEC31BF10186002DC944 /* CaptureVideoController.m */; };
+		DC37FEC71BF10747002DC944 /* CaptureVideoPreView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC37FEC61BF10747002DC944 /* CaptureVideoPreView.m */; };
+		DCA816621BF1A02000BEBB4C /* CaptureVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA816611BF1A02000BEBB4C /* CaptureVideoView.m */; };
+		DCA816651BF1D66A00BEBB4C /* BViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA816641BF1D66A00BEBB4C /* BViewController.m */; };
+		DCA816751BF338D000BEBB4C /* PQActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA816681BF338D000BEBB4C /* PQActivityIndicatorView.m */; };
+		DCA816761BF338D000BEBB4C /* PQMoviePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA8166A1BF338D000BEBB4C /* PQMoviePlayerController.m */; };
+		DCA816771BF338D000BEBB4C /* PQPlayerControl.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA8166C1BF338D000BEBB4C /* PQPlayerControl.m */; };
+		DCA816781BF338D000BEBB4C /* PQPlayerNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA8166F1BF338D000BEBB4C /* PQPlayerNavBar.m */; };
+		DCA816791BF338D000BEBB4C /* PQPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA816721BF338D000BEBB4C /* PQPlayerView.m */; };
+		DCA8167A1BF338D000BEBB4C /* PQProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA816741BF338D000BEBB4C /* PQProgressView.m */; };
+		DCA8167D1BF3504C00BEBB4C /* CaptureVideoSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA8167C1BF3504C00BEBB4C /* CaptureVideoSheetView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +62,30 @@
 		DC37FEAF1BF1012A002DC944 /* CaptureVideoControllerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CaptureVideoControllerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC37FEB31BF1012A002DC944 /* CaptureVideoControllerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoControllerUITests.m; sourceTree = "<group>"; };
 		DC37FEB51BF1012A002DC944 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC37FEC21BF10186002DC944 /* CaptureVideoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureVideoController.h; sourceTree = "<group>"; };
+		DC37FEC31BF10186002DC944 /* CaptureVideoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoController.m; sourceTree = "<group>"; };
+		DC37FEC51BF10747002DC944 /* CaptureVideoPreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureVideoPreView.h; sourceTree = "<group>"; };
+		DC37FEC61BF10747002DC944 /* CaptureVideoPreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoPreView.m; sourceTree = "<group>"; };
+		DCA816601BF1A02000BEBB4C /* CaptureVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureVideoView.h; sourceTree = "<group>"; };
+		DCA816611BF1A02000BEBB4C /* CaptureVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoView.m; sourceTree = "<group>"; };
+		DCA816631BF1D66A00BEBB4C /* BViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BViewController.h; sourceTree = "<group>"; };
+		DCA816641BF1D66A00BEBB4C /* BViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BViewController.m; sourceTree = "<group>"; };
+		DCA816671BF338D000BEBB4C /* PQActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQActivityIndicatorView.h; sourceTree = "<group>"; };
+		DCA816681BF338D000BEBB4C /* PQActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQActivityIndicatorView.m; sourceTree = "<group>"; };
+		DCA816691BF338D000BEBB4C /* PQMoviePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQMoviePlayerController.h; sourceTree = "<group>"; };
+		DCA8166A1BF338D000BEBB4C /* PQMoviePlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQMoviePlayerController.m; sourceTree = "<group>"; };
+		DCA8166B1BF338D000BEBB4C /* PQPlayerControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQPlayerControl.h; sourceTree = "<group>"; };
+		DCA8166C1BF338D000BEBB4C /* PQPlayerControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQPlayerControl.m; sourceTree = "<group>"; };
+		DCA8166D1BF338D000BEBB4C /* PQPlayerDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQPlayerDefines.h; sourceTree = "<group>"; };
+		DCA8166E1BF338D000BEBB4C /* PQPlayerNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQPlayerNavBar.h; sourceTree = "<group>"; };
+		DCA8166F1BF338D000BEBB4C /* PQPlayerNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQPlayerNavBar.m; sourceTree = "<group>"; };
+		DCA816701BF338D000BEBB4C /* PQPlayerPlayback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQPlayerPlayback.h; sourceTree = "<group>"; };
+		DCA816711BF338D000BEBB4C /* PQPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQPlayerView.h; sourceTree = "<group>"; };
+		DCA816721BF338D000BEBB4C /* PQPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQPlayerView.m; sourceTree = "<group>"; };
+		DCA816731BF338D000BEBB4C /* PQProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQProgressView.h; sourceTree = "<group>"; };
+		DCA816741BF338D000BEBB4C /* PQProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQProgressView.m; sourceTree = "<group>"; };
+		DCA8167B1BF3504C00BEBB4C /* CaptureVideoSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureVideoSheetView.h; sourceTree = "<group>"; };
+		DCA8167C1BF3504C00BEBB4C /* CaptureVideoSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoSheetView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +136,7 @@
 		DC37FE8D1BF10129002DC944 /* CaptureVideoController */ = {
 			isa = PBXGroup;
 			children = (
+				DC37FEC11BF1016C002DC944 /* CaptureVideoController */,
 				DC37FE911BF10129002DC944 /* AppDelegate.h */,
 				DC37FE921BF10129002DC944 /* AppDelegate.m */,
 				DC37FE941BF10129002DC944 /* ViewController.h */,
@@ -110,6 +146,13 @@
 				DC37FE9C1BF10129002DC944 /* LaunchScreen.storyboard */,
 				DC37FE9F1BF10129002DC944 /* Info.plist */,
 				DC37FE8E1BF10129002DC944 /* Supporting Files */,
+				DCA816601BF1A02000BEBB4C /* CaptureVideoView.h */,
+				DCA816611BF1A02000BEBB4C /* CaptureVideoView.m */,
+				DCA8167B1BF3504C00BEBB4C /* CaptureVideoSheetView.h */,
+				DCA8167C1BF3504C00BEBB4C /* CaptureVideoSheetView.m */,
+				DCA816631BF1D66A00BEBB4C /* BViewController.h */,
+				DCA816641BF1D66A00BEBB4C /* BViewController.m */,
+				DCA816661BF338D000BEBB4C /* PQPlayer */,
 			);
 			path = CaptureVideoController;
 			sourceTree = "<group>";
@@ -138,6 +181,38 @@
 				DC37FEB51BF1012A002DC944 /* Info.plist */,
 			);
 			path = CaptureVideoControllerUITests;
+			sourceTree = "<group>";
+		};
+		DC37FEC11BF1016C002DC944 /* CaptureVideoController */ = {
+			isa = PBXGroup;
+			children = (
+				DC37FEC21BF10186002DC944 /* CaptureVideoController.h */,
+				DC37FEC31BF10186002DC944 /* CaptureVideoController.m */,
+				DC37FEC51BF10747002DC944 /* CaptureVideoPreView.h */,
+				DC37FEC61BF10747002DC944 /* CaptureVideoPreView.m */,
+			);
+			path = CaptureVideoController;
+			sourceTree = "<group>";
+		};
+		DCA816661BF338D000BEBB4C /* PQPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				DCA816671BF338D000BEBB4C /* PQActivityIndicatorView.h */,
+				DCA816681BF338D000BEBB4C /* PQActivityIndicatorView.m */,
+				DCA816691BF338D000BEBB4C /* PQMoviePlayerController.h */,
+				DCA8166A1BF338D000BEBB4C /* PQMoviePlayerController.m */,
+				DCA8166B1BF338D000BEBB4C /* PQPlayerControl.h */,
+				DCA8166C1BF338D000BEBB4C /* PQPlayerControl.m */,
+				DCA8166D1BF338D000BEBB4C /* PQPlayerDefines.h */,
+				DCA8166E1BF338D000BEBB4C /* PQPlayerNavBar.h */,
+				DCA8166F1BF338D000BEBB4C /* PQPlayerNavBar.m */,
+				DCA816701BF338D000BEBB4C /* PQPlayerPlayback.h */,
+				DCA816711BF338D000BEBB4C /* PQPlayerView.h */,
+				DCA816721BF338D000BEBB4C /* PQPlayerView.m */,
+				DCA816731BF338D000BEBB4C /* PQProgressView.h */,
+				DCA816741BF338D000BEBB4C /* PQProgressView.m */,
+			);
+			path = PQPlayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,9 +345,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCA816651BF1D66A00BEBB4C /* BViewController.m in Sources */,
+				DCA816771BF338D000BEBB4C /* PQPlayerControl.m in Sources */,
+				DCA8167A1BF338D000BEBB4C /* PQProgressView.m in Sources */,
+				DCA8167D1BF3504C00BEBB4C /* CaptureVideoSheetView.m in Sources */,
+				DCA816781BF338D000BEBB4C /* PQPlayerNavBar.m in Sources */,
+				DCA816761BF338D000BEBB4C /* PQMoviePlayerController.m in Sources */,
 				DC37FE961BF10129002DC944 /* ViewController.m in Sources */,
+				DCA816751BF338D000BEBB4C /* PQActivityIndicatorView.m in Sources */,
+				DCA816791BF338D000BEBB4C /* PQPlayerView.m in Sources */,
+				DC37FEC71BF10747002DC944 /* CaptureVideoPreView.m in Sources */,
 				DC37FE931BF10129002DC944 /* AppDelegate.m in Sources */,
+				DC37FEC41BF10186002DC944 /* CaptureVideoController.m in Sources */,
 				DC37FE901BF10129002DC944 /* main.m in Sources */,
+				DCA816621BF1A02000BEBB4C /* CaptureVideoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +497,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CaptureVideoController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dd.CaptureVideoController;
@@ -422,6 +510,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CaptureVideoController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dd.CaptureVideoController;
@@ -496,6 +586,7 @@
 				DC37FEBA1BF1012A002DC944 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DC37FEBB1BF1012A002DC944 /* Build configuration list for PBXNativeTarget "CaptureVideoControllerTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +595,7 @@
 				DC37FEBD1BF1012A002DC944 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DC37FEBE1BF1012A002DC944 /* Build configuration list for PBXNativeTarget "CaptureVideoControllerUITests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +604,7 @@
 				DC37FEC01BF1012A002DC944 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

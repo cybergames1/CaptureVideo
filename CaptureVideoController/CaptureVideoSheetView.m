@@ -10,12 +10,18 @@
 
 @implementation CaptureVideoSheetView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor blackColor];
+        for (UIView *v in self.subviews) {
+            CGRect rect = v.frame;
+            rect.origin.y += 20;
+            v.frame = rect;
+        }
+    }
+    return self;
 }
-*/
 
 @end

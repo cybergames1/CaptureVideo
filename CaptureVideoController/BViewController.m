@@ -7,16 +7,41 @@
 //
 
 #import "BViewController.h"
+#import "PQMoviePlayerController.h"
 
 @interface BViewController ()
+
+@property (nonatomic,retain) PQMoviePlayerController * moviePlayer;
 
 @end
 
 @implementation BViewController
 
+- (void)dealloc
+{
+    [_fileURL release];_fileURL = nil;
+    if (_moviePlayer) {
+        [_moviePlayer stop];
+        [_moviePlayer release];_moviePlayer = nil;
+    }
+    [super dealloc];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"预览";
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    NSLog(@"fileurl:%@",_fileURL);
+    PQMoviePlayerController *moviePlayer = [[[PQMoviePlayerController alloc] initWithContentURL:_fileURL] autorelease];
+    moviePlayer.view.frame = self.view.bounds;
+    moviePlayer.controlStyle = PQMovieControlStyleNone;
+    moviePlayer.repeatMode = PQMovieRepeatModeLoop;
+    [self.view addSubview:moviePlayer.view];
+    self.moviePlayer = moviePlayer;
+    
+    [self.moviePlayer play];
 }
 
 - (void)didReceiveMemoryWarning {
