@@ -17,6 +17,9 @@
 		DC37FEB41BF1012A002DC944 /* CaptureVideoControllerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC37FEB31BF1012A002DC944 /* CaptureVideoControllerUITests.m */; };
 		DC37FEC41BF10186002DC944 /* CaptureVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC37FEC31BF10186002DC944 /* CaptureVideoController.m */; };
 		DC37FEC71BF10747002DC944 /* CaptureVideoPreView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC37FEC61BF10747002DC944 /* CaptureVideoPreView.m */; };
+		DC3A50161BF99CF20089B699 /* capture_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC3A50131BF99CF20089B699 /* capture_bg@3x.png */; };
+		DC3A50171BF99CF20089B699 /* capture_focus@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC3A50141BF99CF20089B699 /* capture_focus@3x.png */; };
+		DC3A50181BF99CF20089B699 /* capture_shoot@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC3A50151BF99CF20089B699 /* capture_shoot@3x.png */; };
 		DCA816621BF1A02000BEBB4C /* CaptureVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA816611BF1A02000BEBB4C /* CaptureVideoView.m */; };
 		DCA816651BF1D66A00BEBB4C /* BViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA816641BF1D66A00BEBB4C /* BViewController.m */; };
 		DCA816751BF338D000BEBB4C /* PQActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA816681BF338D000BEBB4C /* PQActivityIndicatorView.m */; };
@@ -66,6 +69,9 @@
 		DC37FEC31BF10186002DC944 /* CaptureVideoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoController.m; sourceTree = "<group>"; };
 		DC37FEC51BF10747002DC944 /* CaptureVideoPreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureVideoPreView.h; sourceTree = "<group>"; };
 		DC37FEC61BF10747002DC944 /* CaptureVideoPreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoPreView.m; sourceTree = "<group>"; };
+		DC3A50131BF99CF20089B699 /* capture_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture_bg@3x.png"; sourceTree = "<group>"; };
+		DC3A50141BF99CF20089B699 /* capture_focus@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture_focus@3x.png"; sourceTree = "<group>"; };
+		DC3A50151BF99CF20089B699 /* capture_shoot@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture_shoot@3x.png"; sourceTree = "<group>"; };
 		DCA816601BF1A02000BEBB4C /* CaptureVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureVideoView.h; sourceTree = "<group>"; };
 		DCA816611BF1A02000BEBB4C /* CaptureVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoView.m; sourceTree = "<group>"; };
 		DCA816631BF1D66A00BEBB4C /* BViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BViewController.h; sourceTree = "<group>"; };
@@ -152,6 +158,7 @@
 				DCA8167C1BF3504C00BEBB4C /* CaptureVideoSheetView.m */,
 				DCA816631BF1D66A00BEBB4C /* BViewController.h */,
 				DCA816641BF1D66A00BEBB4C /* BViewController.m */,
+				DC3A50121BF99C940089B699 /* CaptureVideoImages */,
 				DCA816661BF338D000BEBB4C /* PQPlayer */,
 			);
 			path = CaptureVideoController;
@@ -192,6 +199,16 @@
 				DC37FEC61BF10747002DC944 /* CaptureVideoPreView.m */,
 			);
 			path = CaptureVideoController;
+			sourceTree = "<group>";
+		};
+		DC3A50121BF99C940089B699 /* CaptureVideoImages */ = {
+			isa = PBXGroup;
+			children = (
+				DC3A50131BF99CF20089B699 /* capture_bg@3x.png */,
+				DC3A50141BF99CF20089B699 /* capture_focus@3x.png */,
+				DC3A50151BF99CF20089B699 /* capture_shoot@3x.png */,
+			);
+			path = CaptureVideoImages;
 			sourceTree = "<group>";
 		};
 		DCA816661BF338D000BEBB4C /* PQPlayer */ = {
@@ -318,9 +335,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC3A50171BF99CF20089B699 /* capture_focus@3x.png in Resources */,
 				DC37FE9E1BF10129002DC944 /* LaunchScreen.storyboard in Resources */,
+				DC3A50181BF99CF20089B699 /* capture_shoot@3x.png in Resources */,
 				DC37FE9B1BF10129002DC944 /* Assets.xcassets in Resources */,
 				DC37FE991BF10129002DC944 /* Main.storyboard in Resources */,
+				DC3A50161BF99CF20089B699 /* capture_bg@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

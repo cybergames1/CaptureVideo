@@ -16,7 +16,7 @@
     AVCaptureDeviceInput                *_audioDeviceInput;
     AVCaptureMovieFileOutput            *_movieFileOutput;
     
-    UIView                              *_preView;
+    CaptureVideoPreView                 *_preView;
     
     AVCaptureConnection					*_audioConnection;
     AVCaptureConnection					*_videoConnection;
@@ -69,6 +69,10 @@
     if (!_preView) {
         _preView = [[CaptureVideoPreView alloc] init];
         [(AVCaptureVideoPreviewLayer *)[_preView layer] setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(focusAndExposeTap:)];
+        [_preView addGestureRecognizer:tap];
+        [tap release];
     }
     return _preView;
 }
@@ -103,8 +107,8 @@
         _audioConnection = [_audioDataOutput connectionWithMediaType:AVMediaTypeAudio];
         
         //preset
-        if ([_captureSession canSetSessionPreset:AVCaptureSessionPreset640x480]) {
-            [_captureSession setSessionPreset:AVCaptureSessionPreset640x480];
+        if ([_captureSession canSetSessionPreset:AVCaptureSessionPresetHigh]) {
+            [_captureSession setSessionPreset:AVCaptureSessionPresetHigh];
         }
     }
     return _captureSession;
@@ -176,6 +180,47 @@
 - (void)stopCamera {
     [[self captureSession] stopRunning];
 }
+
+///////////////////////////////////////////////////
+// 聚焦
+///////////////////////////////////////////////////
+
+- (IBAction)focusAndExposeTap:(UIGestureRecognizer *)gestureRecognizer
+{
+    [_preView focusAndExposeAtPoint:[gestureRecognizer locationInView:_preView]];
+    CGPoint devicePoint = [(AVCaptureVideoPreviewLayer *)_preView.layer captureDevicePointOfInterestForPoint:[gestureRecognizer locationInView:gestureRecognizer.view]];
+    [self focusWithMode:AVCaptureFocusModeAutoFocus exposeWithMode:AVCaptureExposureModeAutoExpose atDevicePoint:devicePoint monitorSubjectAreaChange:YES];
+}
+
+#pragma mark Device Configuration
+
+- (void)focusWithMode:(AVCaptureFocusMode)focusMode exposeWithMode:(AVCaptureExposureMode)exposureMode atDevicePoint:(CGPoint)point monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
+{
+    dispatch_async(_movieWritingQueue, ^{
+        AVCaptureDevice *device = _videoDeviceInput.device;
+        NSError *error = nil;
+        if ( [device lockForConfiguration:&error] ) {
+            // Setting (focus/exposure)PointOfInterest alone does not initiate a (focus/exposure) operation.
+            // Call -set(Focus/Exposure)Mode: to apply the new point of interest.
+            if ( device.isFocusPointOfInterestSupported && [device isFocusModeSupported:focusMode] ) {
+                device.focusPointOfInterest = point;
+                device.focusMode = focusMode;
+            }
+            
+            if ( device.isExposurePointOfInterestSupported && [device isExposureModeSupported:exposureMode] ) {
+                device.exposurePointOfInterest = point;
+                device.exposureMode = exposureMode;
+            }
+            
+            device.subjectAreaChangeMonitoringEnabled = monitorSubjectAreaChange;
+            [device unlockForConfiguration];
+        }
+        else {
+            NSLog( @"Could not lock device for configuration: %@", error );
+        }
+    } );
+}
+
 
 #pragma mark - Asset writing
 
