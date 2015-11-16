@@ -23,6 +23,9 @@
 - (void)startCamera;
 - (void)stopCamera;
 
+- (void)setVideoScale:(CGFloat)scale;
+- (void)focusAndExposeTap:(UIGestureRecognizer *)gestureRecognizer;
+
 /** 录制视频的相关操作 **/
 - (void)startRecordingToOutputFileURL:(NSURL *)fileURL;
 - (void)stopRecording;

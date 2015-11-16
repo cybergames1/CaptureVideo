@@ -40,10 +40,10 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
 @interface CaptureVideoView () <CaptureVideoControllerDelegate>
 {
     CaptureVideoController * _videoController;
-    UIView * _progressView;
+    UIView * _backgroundView;
+    UIImageView * _focusImageView;
     UILabel * _cancelLabel;
     NoteLabel * _noteCancelLabel;
-    ShootButton * _shootButton;
     
     BOOL _isShooting;
     CGFloat _currentVideoDur;
@@ -119,6 +119,19 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
     
     [backgroundView addSubview:[[self videoController] view]];
     _videoController.view.frame = backgroundView.bounds;
+    
+    //对焦图
+    [backgroundView addSubview:[self focusImageView]];
+    _backgroundView = backgroundView;
+}
+
+- (UIImageView *)focusImageView {
+    if (!_focusImageView) {
+        _focusImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 70, 70)] autorelease];
+        _focusImageView.image = [UIImage imageNamed:@"capture_focus"];
+        _focusImageView.alpha = 0.f;
+    }
+    return _focusImageView;
 }
 
 - (UIView *)progressView {
@@ -155,7 +168,6 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
     if (!_shootButton) {
         CGFloat maxHeight = CGRectGetHeight(self.frame) - CGRectGetMaxY(_progressView.frame);
         CGFloat width = maxHeight * Button_Width_Rate;
-        NSLog(@"maxheight:%f",maxHeight);
         
         _shootButton = [[[ShootButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.frame)/2-width/2, maxHeight/2-width/2+CGRectGetMaxY(_progressView.frame), width, width)] autorelease];
         _shootButton.backgroundColor = [UIColor clearColor];
@@ -194,7 +206,7 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
             break;
         case UIGestureRecognizerStateChanged:
             if (_isShooting) {
-                if (CGRectContainsPoint(_videoController.view.frame, [recognizer locationInView:self])) {
+                if (CGRectContainsPoint(_backgroundView.frame, [recognizer locationInView:self])) {
                     [self becomeCancelMode];
                 }else {
                     [self becomeRecordMode];
@@ -219,18 +231,19 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
 - (void)tapAction:(UITapGestureRecognizer *)recognizer {
     if (CGRectContainsPoint(_shootButton.frame, [recognizer locationInView:self])) {
         NSLog(@"tap action");
+    }else if (CGRectContainsPoint(_backgroundView.frame, [recognizer locationInView:self])) {
+        [self focusAndExposeAtPoint:[recognizer locationInView:_backgroundView]];
+        [_videoController focusAndExposeTap:recognizer];
     }
 }
 
 - (void)doubleTapAction:(UITapGestureRecognizer *)recognizer {
     _bigMode = !_bigMode;
-    if (CGRectContainsPoint(_videoController.view.frame, [recognizer locationInView:self])) {
-        
+    CGFloat scale = _bigMode ? 2.0 : 1.0;
+    if (CGRectContainsPoint(_backgroundView.frame, [recognizer locationInView:self])) {
+        [_videoController setVideoScale:scale];
         [UIView animateWithDuration:0.25 animations:^{
-            CGRect bounds = _videoController.view.bounds;
-            bounds.size.width = _bigMode ? _videoController.view.frame.size.width*2 : _videoController.view.frame.size.width;
-            bounds.size.height = _bigMode ? _videoController.view.frame.size.height*2 : _videoController.view.frame.size.height;
-            _videoController.view.bounds = bounds;
+            _videoController.view.transform = CGAffineTransformMakeScale(scale, scale);
         }];
     }
 }
@@ -298,6 +311,20 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
     _cancelLabel.hidden = NO;
     [_noteCancelLabel hide];
     _videoMode = CaptureVideoModeRecording;
+}
+
+- (void)focusAndExposeAtPoint:(CGPoint)point {
+    [_focusImageView setCenter:point];
+    _focusImageView.transform = CGAffineTransformMakeScale(2.0, 2.0);
+    
+    [UIView animateWithDuration:0.3f delay:0.f options:UIViewAnimationOptionAllowUserInteraction animations:^{
+        _focusImageView.alpha = 1.f;
+        _focusImageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5f delay:0.5f options:UIViewAnimationOptionAllowUserInteraction animations:^{
+            _focusImageView.alpha = 0.f;
+        } completion:nil];
+    }];
 }
 
 // --------------------------------
@@ -374,12 +401,22 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
         UILabel *label = [[[UILabel alloc] initWithFrame:self.bounds] autorelease];
         label.backgroundColor = [UIColor clearColor];
         label.textColor = [[self class] labelColor];
-        label.font = [UIFont systemFontOfSize:21];
+        label.font = [UIFont systemFontOfSize:14.0];
         label.textAlignment = NSTextAlignmentCenter;
         label.text = @"按住拍";
         [self addSubview:label];
     }
     return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    for (UIView *v in self.subviews) {
+        if ([v isKindOfClass:[UILabel class]]) {
+            UILabel *label = (UILabel *)v;
+            label.frame = self.bounds;
+        }
+    }
 }
 
 - (void)setHighlighted:(BOOL)highlighted {

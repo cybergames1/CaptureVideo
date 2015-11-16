@@ -20,9 +20,11 @@
     
     AVCaptureConnection					*_audioConnection;
     AVCaptureConnection					*_videoConnection;
+    AVCaptureConnection                 *_imageConnection;
     
     AVCaptureVideoDataOutput            *_videoDataOutput;
     AVCaptureAudioDataOutput            *_audioDataOutput;
+    AVCaptureStillImageOutput           *_imageOutput;
     
     AVAssetWriter						*_assetWriter;
     AVAssetWriterInput					*_assetWriterAudioIn;
@@ -60,7 +62,7 @@
     if (self) {
         self.referenceOrientation = AVCaptureVideoOrientationPortrait;
         [[self view] setCaptureSession:[self captureSession]];
-        [[self captureSession] startRunning];
+        [self startCamera];
     }
     return self;
 }
@@ -69,10 +71,7 @@
     if (!_preView) {
         _preView = [[CaptureVideoPreView alloc] init];
         [(AVCaptureVideoPreviewLayer *)[_preView layer] setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(focusAndExposeTap:)];
-        [_preView addGestureRecognizer:tap];
-        [tap release];
+        [[_preView layer] setMasksToBounds:YES];
     }
     return _preView;
 }
@@ -94,6 +93,12 @@
         }
         
         //输出
+        if ([_captureSession canAddOutput:[self imageOutput]]) {
+            [_captureSession addOutput:[self imageOutput]];
+        }
+        _imageConnection = [_imageOutput connectionWithMediaType:AVMediaTypeVideo];
+        _imageConnection.videoOrientation = AVCaptureVideoOrientationPortrait;
+        
         if ([_captureSession canAddOutput:[self videoDataOutput]]) {
             [_captureSession addOutput:[self videoDataOutput]];
         }
@@ -128,6 +133,16 @@
         _audioDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio] error:nil];
     }
     return _audioDeviceInput;
+}
+
+- (AVCaptureStillImageOutput *)imageOutput {
+    if (!_imageOutput) {
+        AVCaptureStillImageOutput *tmpOutput = [[AVCaptureStillImageOutput alloc] init];
+        NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey,nil];//输出jpeg
+        tmpOutput.outputSettings = outputSettings;
+        _imageOutput = tmpOutput;
+    }
+    return _imageOutput;
 }
 
 //视频输出
@@ -174,21 +189,54 @@
 }
 
 - (void)startCamera {
-    [[self captureSession] startRunning];
+    dispatch_async(_movieWritingQueue, ^{
+        [[self captureSession] startRunning];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectAreaDidChange:) name:AVCaptureDeviceSubjectAreaDidChangeNotification object:[[self videoDeviceInput] device]];
+    });
 }
 
 - (void)stopCamera {
-    [[self captureSession] stopRunning];
+    dispatch_async(_movieWritingQueue, ^{
+        [[self captureSession] stopRunning];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureDeviceSubjectAreaDidChangeNotification object:[_videoDeviceInput device]];
+    });
+}
+
+- (void)setVideoScale:(CGFloat)scale {
+    AVCaptureConnection *connection = [self findVideoConnection];
+    [connection setVideoScaleAndCropFactor:scale];
+}
+
+- (AVCaptureConnection*)findVideoConnection {
+    AVCaptureConnection *videoConnection = nil;
+    for (AVCaptureConnection *connection in _imageOutput.connections) {
+        for (AVCaptureInputPort *port in connection.inputPorts) {
+            if ([[port mediaType] isEqual:AVMediaTypeVideo]) {
+                videoConnection = connection;
+                break;
+            }
+        }
+        if (videoConnection) {
+            break;
+        }
+    }
+    return videoConnection;
 }
 
 ///////////////////////////////////////////////////
 // 聚焦
 ///////////////////////////////////////////////////
 
-- (IBAction)focusAndExposeTap:(UIGestureRecognizer *)gestureRecognizer
+- (void)subjectAreaDidChange:(NSNotification *)notification {
+    
+    CGPoint devicePoint = CGPointMake(.5, .5);
+    [self focusWithMode:AVCaptureFocusModeContinuousAutoFocus exposeWithMode:AVCaptureExposureModeContinuousAutoExposure atDevicePoint:devicePoint monitorSubjectAreaChange:NO];
+}
+
+- (void)focusAndExposeTap:(UIGestureRecognizer *)gestureRecognizer
 {
-    [_preView focusAndExposeAtPoint:[gestureRecognizer locationInView:_preView]];
-    CGPoint devicePoint = [(AVCaptureVideoPreviewLayer *)_preView.layer captureDevicePointOfInterestForPoint:[gestureRecognizer locationInView:gestureRecognizer.view]];
+    CGPoint devicePoint = [(AVCaptureVideoPreviewLayer *)_preView.layer captureDevicePointOfInterestForPoint:[gestureRecognizer locationInView:_preView]];
     [self focusWithMode:AVCaptureFocusModeAutoFocus exposeWithMode:AVCaptureExposureModeAutoExpose atDevicePoint:devicePoint monitorSubjectAreaChange:YES];
 }
 
@@ -220,7 +268,6 @@
         }
     } );
 }
-
 
 #pragma mark - Asset writing
 

@@ -13,6 +13,4 @@
 
 @property (nonatomic, retain) AVCaptureSession *captureSession;
 
-- (void)focusAndExposeAtPoint:(CGPoint)point;
-
 @end

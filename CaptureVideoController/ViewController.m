@@ -119,14 +119,16 @@
         _videoSuperView.frame = rect;
     }completion:^(BOOL finished) {
         [_videoSuperView removeFromSuperview];
-        PQMoviePlayerController *moviePlayer = [[[PQMoviePlayerController alloc] initWithContentURL:fileURL] autorelease];
-        moviePlayer.view.frame = self.view.bounds;
-        moviePlayer.controlStyle = PQMovieControlStyleNone;
-        moviePlayer.repeatMode = PQMovieRepeatModeLoop;
-        [self.view addSubview:moviePlayer.view];
-        self.moviePlayer = moviePlayer;
-        
-        [self.moviePlayer play];
+        if (fileURL) {
+            PQMoviePlayerController *moviePlayer = [[[PQMoviePlayerController alloc] initWithContentURL:fileURL] autorelease];
+            moviePlayer.view.frame = self.view.bounds;
+            moviePlayer.controlStyle = PQMovieControlStyleNone;
+            moviePlayer.repeatMode = PQMovieRepeatModeLoop;
+            [self.view addSubview:moviePlayer.view];
+            self.moviePlayer = moviePlayer;
+            
+            [self.moviePlayer play];
+        }
     }];
 }
 

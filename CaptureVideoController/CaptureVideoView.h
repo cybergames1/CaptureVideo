@@ -20,8 +20,11 @@ enum {
 typedef NSInteger CaptureVideoMode;
 
 @protocol CaptureVideoViewDelegate;
-
-@interface CaptureVideoView : UIView
+@class ShootButton;
+@interface CaptureVideoView : UIView {
+    ShootButton * _shootButton;
+    UIView * _progressView;
+}
 
 @property (nonatomic, assign) id<CaptureVideoViewDelegate> delegate;
 
@@ -40,3 +43,7 @@ typedef NSInteger CaptureVideoMode;
 //info dictionary keys
 UIKIT_EXTERN NSString *const CaptureVideoURL; //拍摄完成后生成的URL地址
 UIKIT_EXTERN NSString *const CaptureVideoUIMode; //拍摄完成时，拍摄所处于的模式，当处于取消模式时，需要弹alert提示
+
+
+
+
