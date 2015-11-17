@@ -333,6 +333,7 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,  NSUserDomainMask, YES);
     if ([paths count] > 0) {
         NSString * rootPath = [[NSString alloc] initWithFormat:@"%@",[paths objectAtIndex:0]];
+        rootPath = [rootPath stringByAppendingPathComponent:@"Capture_RecordMovies"];
         filePath = [rootPath stringByAppendingPathComponent:@"RecordMovie_temp.mp4"];
     }
     return [NSURL fileURLWithPath:filePath];
