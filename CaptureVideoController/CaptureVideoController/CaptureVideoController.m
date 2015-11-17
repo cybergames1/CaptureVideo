@@ -62,7 +62,6 @@
     if (self) {
         self.referenceOrientation = AVCaptureVideoOrientationPortrait;
         [[self view] setCaptureSession:[self captureSession]];
-        [self startCamera];
     }
     return self;
 }
@@ -188,7 +187,7 @@
     return backCamera;
 }
 
-- (void)startCamera {
+- (void)startCamera {    
     dispatch_async(_movieWritingQueue, ^{
         [[self captureSession] startRunning];
         
@@ -371,7 +370,7 @@
                                                AVVideoScalingModeKey:AVVideoScalingModeResizeAspectFill,
                                                AVVideoWidthKey : [NSNumber numberWithInteger:320],
                                                AVVideoHeightKey : [NSNumber numberWithInteger:240],
-                                               AVVideoCompressionPropertiesKey : @{ AVVideoAverageBitRateKey : [NSNumber numberWithInteger:bitsPerSecond],
+                                               AVVideoCompressionPropertiesKey : @{
                                                                                     AVVideoMaxKeyFrameIntervalKey :[NSNumber numberWithInteger:15]}};
     
     if ([_assetWriter canApplyOutputSettings:videoCompressionSettings forMediaType:AVMediaTypeVideo])
@@ -559,16 +558,7 @@
 
 - (void)showError:(NSError *)error
 {
-    CFRunLoopPerformBlock(CFRunLoopGetMain(), kCFRunLoopCommonModes, ^(void)
-                          {
-                              NSLog(@"======record error======");
-//                              UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:error.localizedDescription
-//                                                                                  message:error.localizedFailureReason
-//                                                                                 delegate:nil
-//                                                                        cancelButtonTitle:@"OK"
-//                                                                        otherButtonTitles:nil];
-//                              [alertView show];
-                          });
+
 }
 
 @end

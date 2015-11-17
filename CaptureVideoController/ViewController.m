@@ -13,11 +13,7 @@
 #import "PQMoviePlayerController.h"
 
 @interface ViewController () <CaptureVideoViewDelegate>
-{
-    BOOL _start;
-    UIView * _videoSuperView;
-    CaptureVideoView * _videoView;
-}
+
 
 @property (nonatomic,retain) PQMoviePlayerController * moviePlayer;
 
@@ -47,78 +43,17 @@
     
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-//    CaptureVideoView *videoView = [[CaptureVideoView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64)];
-//    videoView.delegate = self;
-//    [self.view addSubview:videoView];
-//    [videoView release];
-//    _videoView = videoView;
-}
+//CaptureVideoViewDelegate
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    if (_videoView) {
-        [_videoView stopCapture];
-        [_videoView removeFromSuperview];
-    }
+- (void)captureVideoViewDidCancel:(CaptureVideoView *)videoView {
+    
 }
 
 - (void)captureVideoView:(CaptureVideoView *)videoView didFinishWithInfo:(NSDictionary *)info {
     CaptureVideoMode mode = [[info objectForKey:CaptureVideoUIMode] integerValue];
     if (mode == CaptureVideoModeRecording) {
-//        BViewController *controller = [[BViewController alloc] init];
-//        controller.fileURL = [info objectForKey:CaptureVideoURL];
-//        [self.navigationController pushViewController:controller animated:YES];
-//        [controller release];
-        _start = NO;
-        [self hideVideoView:[info objectForKey:CaptureVideoURL]];
-    }else {
-        UIAlertView *aler = [[UIAlertView alloc] initWithTitle:nil message:@"是否继续发送" delegate:nil cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
-        [aler show];
-        [aler release];
-    }
-}
 
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    _start = !_start;
-    
-    if (_start) {
-        [self showVideoView];
-    }else {
-        [self hideVideoView:nil];
-    }
-}
-
-- (void)showVideoView {
-    [self stopPlayer];
-    _videoSuperView = [[[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame), self.view.frame.size.height, 400)] autorelease];
-    _videoSuperView.userInteractionEnabled = YES;
-    [self.view addSubview:_videoSuperView];
-    
-    CaptureVideoSheetView *videoView = [[CaptureVideoSheetView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 400)];
-    videoView.delegate = self;
-    [_videoSuperView addSubview:videoView];
-    [videoView release];
-    _videoView = videoView;
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        CGRect rect = _videoSuperView.frame;
-        rect.origin.y -= rect.size.height;
-        _videoSuperView.frame = rect;
-    }completion:^(BOOL finished) {
-        //
-    }];
-}
-
-- (void)hideVideoView:(NSURL *)fileURL {
-    [UIView animateWithDuration:0.25 animations:^{
-        CGRect rect = _videoSuperView.frame;
-        rect.origin.y += rect.size.height;
-        _videoSuperView.frame = rect;
-    }completion:^(BOOL finished) {
-        [_videoSuperView removeFromSuperview];
+        NSURL *fileURL = [info objectForKey:CaptureVideoURL];
         if (fileURL) {
             PQMoviePlayerController *moviePlayer = [[[PQMoviePlayerController alloc] initWithContentURL:fileURL] autorelease];
             moviePlayer.view.frame = self.view.bounds;
@@ -129,8 +64,26 @@
             
             [self.moviePlayer play];
         }
-    }];
+    }else {
+        UIAlertView *aler = [[UIAlertView alloc] initWithTitle:nil message:@"是否继续发送" delegate:nil cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+        [aler show];
+        [aler release];
+    }
 }
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self showVideoView];
+}
+
+- (void)showVideoView {
+    [self stopPlayer];
+    CaptureVideoSheetView *videoView = [[CaptureVideoSheetView alloc] init];
+    videoView.delegate = self;
+    [videoView show];
+    [videoView release];
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

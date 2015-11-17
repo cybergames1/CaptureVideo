@@ -7,7 +7,7 @@
 //
 
 #import "CaptureVideoView.h"
-#import "CaptureVideoController.h"
+#import "UIImage+CaptureImageEffects.h"
 
 #define VideoSize_320x240 (320.0/240.0)
 #define MAX_WriteSec 6.0 //6秒视频
@@ -33,23 +33,25 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
 
 - (void)initZero;
 - (void)show;
+- (void)showAutoHide;
 - (void)hide;
 
 @end
 
-@interface CaptureVideoView () <CaptureVideoControllerDelegate>
+@interface CaptureVideoView ()
 {
-    CaptureVideoController * _videoController;
+    UIImageView * _preView;
     UIView * _backgroundView;
     UIImageView * _focusImageView;
     UILabel * _cancelLabel;
     NoteLabel * _noteCancelLabel;
+    NoteLabel * _noteResetLabel;
     
     BOOL _isShooting;
     CGFloat _currentVideoDur;
     CaptureVideoMode _videoMode;
-    BOOL _isRecordFinish;
     BOOL _bigMode;
+    CGFloat _progress;
 }
 
 @property (nonatomic, retain) NSTimer * writeTimer;
@@ -60,6 +62,7 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
 
 - (void)dealloc
 {
+    [self stopCapture];
     [_videoController.view removeFromSuperview];
     [_videoController release];_videoController = nil;
     [_writeTimer release];_writeTimer = nil;
@@ -86,6 +89,7 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
         //提示文字
         [self addSubview:[self cancelLabel]];
         [self addSubview:[self noteCancelLabel]];
+        [self addSubview:[self noteResetlLabel]];
         //拍摄按钮
         [self addSubview:[self shootButton]];
         //手势
@@ -95,6 +99,10 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
         
         _isShooting = NO;
         _currentVideoDur = 0.0;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.35 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [self startCapture];
+        });
     }
     return self;
 }
@@ -123,6 +131,8 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
     //对焦图
     [backgroundView addSubview:[self focusImageView]];
     _backgroundView = backgroundView;
+    
+    [backgroundView addSubview:[self preView]];
 }
 
 - (UIImageView *)focusImageView {
@@ -134,10 +144,20 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
     return _focusImageView;
 }
 
+- (UIImageView *)preView {
+    if (!_preView) {
+        UIImageView *backgroundImage = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
+        backgroundImage.image = [[UIImage imageNamed:@"capture_bg"] __applyLightEffect];
+        _preView = backgroundImage;
+    }
+    return _preView;
+}
+
 - (UIView *)progressView {
     if (!_progressView) {
         _progressView = [[[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY([self videoController].view.frame), self.frame.size.width, 3)] autorelease];
         _progressView.backgroundColor = [[self class] recoardColr];
+        [self setProgress:0.0];
     }
     return _progressView;
 }
@@ -164,6 +184,17 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
     return _noteCancelLabel;
 }
 
+- (NoteLabel *)noteResetlLabel {
+    if (!_noteResetLabel) {
+        _noteResetLabel = [[[NoteLabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY([self videoController].view.frame)-40, 0, 20)] autorelease];
+        _noteResetLabel.text = @"拍摄时请长按按钮";
+        [_noteResetLabel sizeToFit];
+        _noteResetLabel.left = self.frame.size.width/2-_noteResetLabel.frame.size.width/2;
+        [_noteResetLabel initZero];
+    }
+    return _noteResetLabel;
+}
+
 - (UIView *)shootButton {
     if (!_shootButton) {
         CGFloat maxHeight = CGRectGetHeight(self.frame) - CGRectGetMaxY(_progressView.frame);
@@ -178,7 +209,7 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
 
 - (UILongPressGestureRecognizer *)longPressGesture {
     UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressAction:)];
-    recognizer.minimumPressDuration = 0.35;
+    recognizer.minimumPressDuration = 0.15;
     recognizer.allowableMovement = 3.0;
     return [recognizer autorelease];
 }
@@ -214,11 +245,13 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
             }
             break;
         case UIGestureRecognizerStateEnded:
-            _isShooting = NO;
-            if (_videoMode == CaptureVideoModeRecording) {
-                _isRecordFinish = YES;
+            if (_isShooting) {
+                _isShooting = NO;
+                if (_videoMode == CaptureVideoModeRecording) {
+                    _isRecordFinish = YES;
+                }
+                [self stopRecording];
             }
-            [self stopRecording];
             break;
         case UIGestureRecognizerStateCancelled:
             _isShooting = NO;
@@ -230,7 +263,9 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
 
 - (void)tapAction:(UITapGestureRecognizer *)recognizer {
     if (CGRectContainsPoint(_shootButton.frame, [recognizer locationInView:self])) {
-        NSLog(@"tap action");
+        [_noteResetLabel initZero];
+        [_noteResetLabel showAutoHide];
+        
     }else if (CGRectContainsPoint(_backgroundView.frame, [recognizer locationInView:self])) {
         [self focusAndExposeAtPoint:[recognizer locationInView:_backgroundView]];
         [_videoController focusAndExposeTap:recognizer];
@@ -238,18 +273,27 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
 }
 
 - (void)doubleTapAction:(UITapGestureRecognizer *)recognizer {
-    _bigMode = !_bigMode;
-    CGFloat scale = _bigMode ? 2.0 : 1.0;
     if (CGRectContainsPoint(_backgroundView.frame, [recognizer locationInView:self])) {
+        _bigMode = !_bigMode;
+        CGFloat scale = _bigMode ? 2.0 : 1.0;
+        
         [_videoController setVideoScale:scale];
-        [UIView animateWithDuration:0.25 animations:^{
+        [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
             _videoController.view.transform = CGAffineTransformMakeScale(scale, scale);
-        }];
+        }completion:nil];
     }
 }
 
 - (void)startCapture {
     [[self videoController] startCamera];
+    
+    _videoController.view.transform = CGAffineTransformMakeScale(2.0, 2.0);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [_preView removeFromSuperview];
+        [UIView animateWithDuration:0.35 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+            _videoController.view.transform = CGAffineTransformIdentity;
+        }completion:nil];
+    });
 }
 
 - (void)stopCapture {
@@ -331,6 +375,7 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
 // 录制计时器
 // --------------------------------
 - (void)startRecordTimer {
+    _currentVideoDur = 0.0;
     [self stopRecordTimer];
     self.writeTimer = [NSTimer scheduledTimerWithTimeInterval:0.033 target:self selector:@selector(recordTime) userInfo:nil repeats:YES];
     [_shootButton setHighlighted:YES];
@@ -356,10 +401,10 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
 
 - (void)setProgress:(CGFloat)progress {
     CGFloat progressWidth = progress * self.frame.size.width;
+    _progress = progress;
     
     CGRect rect = _progressView.frame;
-    rect.origin.x = progressWidth/2;
-    rect.size.width = self.frame.size.width - progressWidth;
+    rect.size.width = progressWidth;
     _progressView.frame = rect;
     _progressView.hidden = (progress > 0) ? NO : YES;
 }
@@ -368,7 +413,7 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
 // CaptureVideoControllerDelegate
 // --------------------------------
 
-- (void)captureVideoDidStartRecording:(CaptureVideoController *)controller {
+- (void)captureVideoWillStartRecording:(CaptureVideoController *)controller {
     
 }
 
@@ -429,11 +474,18 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
 @interface NoteLabel ()
 {
     CGFloat _height;
+    BOOL _animationFinished;
 }
 
 @end
 
 @implementation NoteLabel
+
+- (void)dealloc
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [super dealloc];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -472,8 +524,10 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
 }
 
 - (void)initZero {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
     self.alpha = 0.0;
     self.transform = CGAffineTransformIdentity;
+    [self.layer removeAllAnimations];
     
     CGRect rect = self.frame;
     rect.origin.y += rect.size.height/2;
@@ -483,22 +537,27 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
 
 - (void)show {
     if (self.alpha <= 0.0) {
-        [UIView animateWithDuration:0.25 animations:^{
+        [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
             CGRect rect = self.frame;
             rect.origin.y -= _height/2;
             rect.size.height = _height;
             self.frame = rect;
             self.alpha = 1.0;
-        }];
+        }completion:nil];
     }
+}
+
+- (void)showAutoHide {
+    [self show];
+    [self performSelector:@selector(hide) withObject:nil afterDelay:2];
 }
 
 - (void)hide {
     if (self.alpha >= 1.0) {
-        [UIView animateWithDuration:0.25 animations:^{
+        [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
             self.transform = CGAffineTransformMakeScale(0.1, 0.1);
             self.alpha = 0.0;
-        } completion:^(BOOL finished) {
+        }completion:^(BOOL finished) {
             if (finished) {
                 [self initZero];
             }

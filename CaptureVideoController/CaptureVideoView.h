@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CaptureVideoController.h"
 
 /**
  * 拍摄控制界面
@@ -14,16 +15,19 @@
  */
 
 enum {
-    CaptureVideoModeRecording,
-    CaptureVideoModeCancelled,
+    CaptureVideoModeRecording, //正常录制退出模式
+    CaptureVideoModeCancelled, //取消状态退出模式
 };
 typedef NSInteger CaptureVideoMode;
 
 @protocol CaptureVideoViewDelegate;
 @class ShootButton;
-@interface CaptureVideoView : UIView {
+@interface CaptureVideoView : UIView <CaptureVideoControllerDelegate>
+{
+    CaptureVideoController * _videoController;
     ShootButton * _shootButton;
     UIView * _progressView;
+    BOOL _isRecordFinish;
 }
 
 @property (nonatomic, assign) id<CaptureVideoViewDelegate> delegate;

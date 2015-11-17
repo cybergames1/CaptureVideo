@@ -10,4 +10,6 @@
 
 @interface CaptureVideoSheetView : CaptureVideoView
 
+- (void)show;
+
 @end
