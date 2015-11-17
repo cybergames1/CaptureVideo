@@ -52,6 +52,8 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
     CaptureVideoMode _videoMode;
     BOOL _bigMode;
     CGFloat _progress;
+    
+    NSInteger _pinchCount;
 }
 
 @property (nonatomic, retain) NSTimer * writeTimer;
@@ -62,6 +64,7 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
 
 - (void)dealloc
 {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [self stopCapture];
     [_videoController.view removeFromSuperview];
     [_videoController release];_videoController = nil;
@@ -275,13 +278,18 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
 - (void)doubleTapAction:(UITapGestureRecognizer *)recognizer {
     if (CGRectContainsPoint(_backgroundView.frame, [recognizer locationInView:self])) {
         _bigMode = !_bigMode;
-        CGFloat scale = _bigMode ? 2.0 : 1.0;
-        
-        [_videoController setVideoScale:scale];
-        [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-            _videoController.view.transform = CGAffineTransformMakeScale(scale, scale);
-        }completion:nil];
+        [self performSelector:@selector(pinchVideo) withObject:nil afterDelay:0.025];
     }
+}
+- (void)pinchVideo {
+    if (_pinchCount >= 10) {
+        _pinchCount = 0;
+        return;
+    }
+    _pinchCount++;
+    CGFloat scale = _bigMode ? 1.0+_pinchCount*0.1 : 2.0-_pinchCount*0.1;
+    [_videoController setVideoScale:scale];
+    [self performSelector:@selector(pinchVideo) withObject:nil afterDelay:0.025];
 }
 
 - (void)startCapture {

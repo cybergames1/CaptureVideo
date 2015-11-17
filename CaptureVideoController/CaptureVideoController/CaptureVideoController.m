@@ -20,11 +20,9 @@
     
     AVCaptureConnection					*_audioConnection;
     AVCaptureConnection					*_videoConnection;
-    AVCaptureConnection                 *_imageConnection;
     
     AVCaptureVideoDataOutput            *_videoDataOutput;
     AVCaptureAudioDataOutput            *_audioDataOutput;
-    AVCaptureStillImageOutput           *_imageOutput;
     
     AVAssetWriter						*_assetWriter;
     AVAssetWriterInput					*_assetWriterAudioIn;
@@ -92,12 +90,6 @@
         }
         
         //输出
-        if ([_captureSession canAddOutput:[self imageOutput]]) {
-            [_captureSession addOutput:[self imageOutput]];
-        }
-        _imageConnection = [_imageOutput connectionWithMediaType:AVMediaTypeVideo];
-        _imageConnection.videoOrientation = AVCaptureVideoOrientationPortrait;
-        
         if ([_captureSession canAddOutput:[self videoDataOutput]]) {
             [_captureSession addOutput:[self videoDataOutput]];
         }
@@ -134,16 +126,6 @@
     return _audioDeviceInput;
 }
 
-- (AVCaptureStillImageOutput *)imageOutput {
-    if (!_imageOutput) {
-        AVCaptureStillImageOutput *tmpOutput = [[AVCaptureStillImageOutput alloc] init];
-        NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey,nil];//输出jpeg
-        tmpOutput.outputSettings = outputSettings;
-        _imageOutput = tmpOutput;
-    }
-    return _imageOutput;
-}
-
 //视频输出
 - (AVCaptureVideoDataOutput *)videoDataOutput {
     if (!_videoDataOutput) {
@@ -178,49 +160,27 @@
         }
     }
     
-//    if ([backCamera lockForConfiguration:nil]) {
-//        backCamera.activeVideoMinFrameDuration = CMTimeMake(1, 15);
-//        backCamera.activeVideoMaxFrameDuration = CMTimeMake(1, 15);
-//        [backCamera unlockForConfiguration];
-//    }
-    
     return backCamera;
 }
 
-- (void)startCamera {    
-    dispatch_async(_movieWritingQueue, ^{
-        [[self captureSession] startRunning];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectAreaDidChange:) name:AVCaptureDeviceSubjectAreaDidChangeNotification object:[[self videoDeviceInput] device]];
-    });
+- (void)startCamera {
+    [[self captureSession] startRunning];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectAreaDidChange:) name:AVCaptureDeviceSubjectAreaDidChangeNotification object:[[self videoDeviceInput] device]];
 }
 
 - (void)stopCamera {
-    dispatch_async(_movieWritingQueue, ^{
-        [[self captureSession] stopRunning];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureDeviceSubjectAreaDidChangeNotification object:[_videoDeviceInput device]];
-    });
+    [[self captureSession] stopRunning];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVCaptureDeviceSubjectAreaDidChangeNotification object:[_videoDeviceInput device]];
 }
 
 - (void)setVideoScale:(CGFloat)scale {
-    AVCaptureConnection *connection = [self findVideoConnection];
-    [connection setVideoScaleAndCropFactor:scale];
-}
-
-- (AVCaptureConnection*)findVideoConnection {
-    AVCaptureConnection *videoConnection = nil;
-    for (AVCaptureConnection *connection in _imageOutput.connections) {
-        for (AVCaptureInputPort *port in connection.inputPorts) {
-            if ([[port mediaType] isEqual:AVMediaTypeVideo]) {
-                videoConnection = connection;
-                break;
-            }
-        }
-        if (videoConnection) {
-            break;
-        }
+    AVCaptureDevice *device = [_videoDeviceInput device];
+    if ([device lockForConfiguration:nil]) {
+        [[_videoDeviceInput device] setVideoZoomFactor:scale];
+        [device unlockForConfiguration];
     }
-    return videoConnection;
+    
 }
 
 ///////////////////////////////////////////////////
@@ -378,7 +338,7 @@
         // Intialize asset writer video input with the above created settings dictionary
         _assetWriterVideoIn = [AVAssetWriterInput assetWriterInputWithMediaType:AVMediaTypeVideo outputSettings:videoCompressionSettings];
         _assetWriterVideoIn.expectsMediaDataInRealTime = YES;
-        //_assetWriterVideoIn.transform = CGAffineTransformMakeRotation(M_PI_2);
+        //_assetWriterVideoIn.transform = [self transformFromCurrentVideoOrientationToOrientation:_videoOrientation];
         
         // Add asset writer input to asset writer
         if ([_assetWriter canAddInput:_assetWriterVideoIn])
