@@ -31,6 +31,7 @@
 		DCA816791BF338D000BEBB4C /* PQPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA816721BF338D000BEBB4C /* PQPlayerView.m */; };
 		DCA8167A1BF338D000BEBB4C /* PQProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA816741BF338D000BEBB4C /* PQProgressView.m */; };
 		DCA8167D1BF3504C00BEBB4C /* CaptureVideoSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA8167C1BF3504C00BEBB4C /* CaptureVideoSheetView.m */; };
+		DCE04AAB1BFC19C600C84E93 /* capture_startup_eye@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCE04AAA1BFC19C600C84E93 /* capture_startup_eye@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		DCA816741BF338D000BEBB4C /* PQProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQProgressView.m; sourceTree = "<group>"; };
 		DCA8167B1BF3504C00BEBB4C /* CaptureVideoSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureVideoSheetView.h; sourceTree = "<group>"; };
 		DCA8167C1BF3504C00BEBB4C /* CaptureVideoSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoSheetView.m; sourceTree = "<group>"; };
+		DCE04AAA1BFC19C600C84E93 /* capture_startup_eye@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture_startup_eye@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +213,7 @@
 		DC3A50121BF99C940089B699 /* CaptureVideoImages */ = {
 			isa = PBXGroup;
 			children = (
+				DCE04AAA1BFC19C600C84E93 /* capture_startup_eye@3x.png */,
 				DC3A501C1BFB1F5A0089B699 /* capture_back@3x.png */,
 				DC3A50131BF99CF20089B699 /* capture_bg@3x.png */,
 				DC3A50141BF99CF20089B699 /* capture_focus@3x.png */,
@@ -343,6 +346,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCE04AAB1BFC19C600C84E93 /* capture_startup_eye@3x.png in Resources */,
 				DC3A50171BF99CF20089B699 /* capture_focus@3x.png in Resources */,
 				DC37FE9E1BF10129002DC944 /* LaunchScreen.storyboard in Resources */,
 				DC3A50181BF99CF20089B699 /* capture_shoot@3x.png in Resources */,

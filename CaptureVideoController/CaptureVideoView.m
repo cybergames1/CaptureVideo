@@ -149,9 +149,13 @@ UIColor * UIColorWithRGBA (CGFloat red ,CGFloat green , CGFloat blue, CGFloat al
 
 - (UIImageView *)preView {
     if (!_preView) {
-        UIImageView *backgroundImage = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
+        UIImageView *backgroundImage = [[[UIImageView alloc] initWithFrame:_backgroundView.bounds] autorelease];
         backgroundImage.image = [[UIImage imageNamed:@"capture_bg"] __applyLightEffect];
         _preView = backgroundImage;
+        
+        UIImageView *eye = [[[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(_preView.frame)/2-69/2, CGRectGetHeight(_preView.frame)/2-51/2, 69, 51)] autorelease];
+        [eye setImage:[UIImage imageNamed:@"capture_startup_eye"]];
+        [_preView addSubview:eye];
     }
     return _preView;
 }

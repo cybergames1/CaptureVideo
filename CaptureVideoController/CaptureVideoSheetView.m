@@ -114,6 +114,12 @@
         
         CGFloat maxHeight = CGRectGetHeight(self.frame) - CGRectGetMaxY(_progressView.frame);
         [_backButton setFrame:CGRectMake(15, maxHeight/2-image.size.height/2+CGRectGetMaxY(_progressView.frame), image.size.width, image.size.height)];
+        
+        //扩大点击区域
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+        [button setFrame:CGRectMake(_backButton.frame.origin.x, _backButton.frame.origin.y, 150, CGRectGetHeight(_backButton.frame))];
+        [self addSubview:button];
     }
     return _backButton;
 }
