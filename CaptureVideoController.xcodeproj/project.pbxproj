@@ -15,14 +15,10 @@
 		DC37FE9E1BF10129002DC944 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC37FE9C1BF10129002DC944 /* LaunchScreen.storyboard */; };
 		DC37FEA91BF1012A002DC944 /* CaptureVideoControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC37FEA81BF1012A002DC944 /* CaptureVideoControllerTests.m */; };
 		DC37FEB41BF1012A002DC944 /* CaptureVideoControllerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC37FEB31BF1012A002DC944 /* CaptureVideoControllerUITests.m */; };
-		DC37FEC41BF10186002DC944 /* CaptureVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC37FEC31BF10186002DC944 /* CaptureVideoController.m */; };
-		DC37FEC71BF10747002DC944 /* CaptureVideoPreView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC37FEC61BF10747002DC944 /* CaptureVideoPreView.m */; };
 		DC3A50161BF99CF20089B699 /* capture_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC3A50131BF99CF20089B699 /* capture_bg@3x.png */; };
 		DC3A50171BF99CF20089B699 /* capture_focus@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC3A50141BF99CF20089B699 /* capture_focus@3x.png */; };
 		DC3A50181BF99CF20089B699 /* capture_shoot@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC3A50151BF99CF20089B699 /* capture_shoot@3x.png */; };
-		DC3A501B1BFB078A0089B699 /* UIImage+CaptureImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = DC3A501A1BFB078A0089B699 /* UIImage+CaptureImageEffects.m */; };
 		DC3A501D1BFB1F5A0089B699 /* capture_back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC3A501C1BFB1F5A0089B699 /* capture_back@3x.png */; };
-		DCA816621BF1A02000BEBB4C /* CaptureVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA816611BF1A02000BEBB4C /* CaptureVideoView.m */; };
 		DCA816651BF1D66A00BEBB4C /* BViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA816641BF1D66A00BEBB4C /* BViewController.m */; };
 		DCA816751BF338D000BEBB4C /* PQActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA816681BF338D000BEBB4C /* PQActivityIndicatorView.m */; };
 		DCA816761BF338D000BEBB4C /* PQMoviePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA8166A1BF338D000BEBB4C /* PQMoviePlayerController.m */; };
@@ -30,8 +26,12 @@
 		DCA816781BF338D000BEBB4C /* PQPlayerNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA8166F1BF338D000BEBB4C /* PQPlayerNavBar.m */; };
 		DCA816791BF338D000BEBB4C /* PQPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA816721BF338D000BEBB4C /* PQPlayerView.m */; };
 		DCA8167A1BF338D000BEBB4C /* PQProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA816741BF338D000BEBB4C /* PQProgressView.m */; };
-		DCA8167D1BF3504C00BEBB4C /* CaptureVideoSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA8167C1BF3504C00BEBB4C /* CaptureVideoSheetView.m */; };
 		DCE04AAB1BFC19C600C84E93 /* capture_startup_eye@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCE04AAA1BFC19C600C84E93 /* capture_startup_eye@3x.png */; };
+		DCE04AC01BFC5B6C00C84E93 /* CaptureVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE04AB71BFC5B6C00C84E93 /* CaptureVideoController.m */; };
+		DCE04AC11BFC5B6C00C84E93 /* CaptureVideoPreView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE04AB91BFC5B6C00C84E93 /* CaptureVideoPreView.m */; };
+		DCE04AC21BFC5B6C00C84E93 /* CaptureVideoSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE04ABB1BFC5B6C00C84E93 /* CaptureVideoSheetView.m */; };
+		DCE04AC31BFC5B6C00C84E93 /* CaptureVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE04ABD1BFC5B6C00C84E93 /* CaptureVideoView.m */; };
+		DCE04AC41BFC5B6C00C84E93 /* UIImage+CaptureImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE04ABF1BFC5B6C00C84E93 /* UIImage+CaptureImageEffects.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,18 +68,10 @@
 		DC37FEAF1BF1012A002DC944 /* CaptureVideoControllerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CaptureVideoControllerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC37FEB31BF1012A002DC944 /* CaptureVideoControllerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoControllerUITests.m; sourceTree = "<group>"; };
 		DC37FEB51BF1012A002DC944 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DC37FEC21BF10186002DC944 /* CaptureVideoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureVideoController.h; sourceTree = "<group>"; };
-		DC37FEC31BF10186002DC944 /* CaptureVideoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoController.m; sourceTree = "<group>"; };
-		DC37FEC51BF10747002DC944 /* CaptureVideoPreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureVideoPreView.h; sourceTree = "<group>"; };
-		DC37FEC61BF10747002DC944 /* CaptureVideoPreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoPreView.m; sourceTree = "<group>"; };
 		DC3A50131BF99CF20089B699 /* capture_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture_bg@3x.png"; sourceTree = "<group>"; };
 		DC3A50141BF99CF20089B699 /* capture_focus@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture_focus@3x.png"; sourceTree = "<group>"; };
 		DC3A50151BF99CF20089B699 /* capture_shoot@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture_shoot@3x.png"; sourceTree = "<group>"; };
-		DC3A50191BFB078A0089B699 /* UIImage+CaptureImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CaptureImageEffects.h"; sourceTree = "<group>"; };
-		DC3A501A1BFB078A0089B699 /* UIImage+CaptureImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CaptureImageEffects.m"; sourceTree = "<group>"; };
 		DC3A501C1BFB1F5A0089B699 /* capture_back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture_back@3x.png"; sourceTree = "<group>"; };
-		DCA816601BF1A02000BEBB4C /* CaptureVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureVideoView.h; sourceTree = "<group>"; };
-		DCA816611BF1A02000BEBB4C /* CaptureVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoView.m; sourceTree = "<group>"; };
 		DCA816631BF1D66A00BEBB4C /* BViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BViewController.h; sourceTree = "<group>"; };
 		DCA816641BF1D66A00BEBB4C /* BViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BViewController.m; sourceTree = "<group>"; };
 		DCA816671BF338D000BEBB4C /* PQActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQActivityIndicatorView.h; sourceTree = "<group>"; };
@@ -96,9 +88,17 @@
 		DCA816721BF338D000BEBB4C /* PQPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQPlayerView.m; sourceTree = "<group>"; };
 		DCA816731BF338D000BEBB4C /* PQProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQProgressView.h; sourceTree = "<group>"; };
 		DCA816741BF338D000BEBB4C /* PQProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQProgressView.m; sourceTree = "<group>"; };
-		DCA8167B1BF3504C00BEBB4C /* CaptureVideoSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureVideoSheetView.h; sourceTree = "<group>"; };
-		DCA8167C1BF3504C00BEBB4C /* CaptureVideoSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoSheetView.m; sourceTree = "<group>"; };
 		DCE04AAA1BFC19C600C84E93 /* capture_startup_eye@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture_startup_eye@3x.png"; sourceTree = "<group>"; };
+		DCE04AB61BFC5B6C00C84E93 /* CaptureVideoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureVideoController.h; sourceTree = "<group>"; };
+		DCE04AB71BFC5B6C00C84E93 /* CaptureVideoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoController.m; sourceTree = "<group>"; };
+		DCE04AB81BFC5B6C00C84E93 /* CaptureVideoPreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureVideoPreView.h; sourceTree = "<group>"; };
+		DCE04AB91BFC5B6C00C84E93 /* CaptureVideoPreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoPreView.m; sourceTree = "<group>"; };
+		DCE04ABA1BFC5B6C00C84E93 /* CaptureVideoSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureVideoSheetView.h; sourceTree = "<group>"; };
+		DCE04ABB1BFC5B6C00C84E93 /* CaptureVideoSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoSheetView.m; sourceTree = "<group>"; };
+		DCE04ABC1BFC5B6C00C84E93 /* CaptureVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureVideoView.h; sourceTree = "<group>"; };
+		DCE04ABD1BFC5B6C00C84E93 /* CaptureVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureVideoView.m; sourceTree = "<group>"; };
+		DCE04ABE1BFC5B6C00C84E93 /* UIImage+CaptureImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CaptureImageEffects.h"; sourceTree = "<group>"; };
+		DCE04ABF1BFC5B6C00C84E93 /* UIImage+CaptureImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CaptureImageEffects.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,7 +149,7 @@
 		DC37FE8D1BF10129002DC944 /* CaptureVideoController */ = {
 			isa = PBXGroup;
 			children = (
-				DC37FEC11BF1016C002DC944 /* CaptureVideoController */,
+				DCE04AB41BFC5B6C00C84E93 /* CaptureVideo */,
 				DC37FE911BF10129002DC944 /* AppDelegate.h */,
 				DC37FE921BF10129002DC944 /* AppDelegate.m */,
 				DC37FE941BF10129002DC944 /* ViewController.h */,
@@ -159,10 +159,6 @@
 				DC37FE9C1BF10129002DC944 /* LaunchScreen.storyboard */,
 				DC37FE9F1BF10129002DC944 /* Info.plist */,
 				DC37FE8E1BF10129002DC944 /* Supporting Files */,
-				DCA816601BF1A02000BEBB4C /* CaptureVideoView.h */,
-				DCA816611BF1A02000BEBB4C /* CaptureVideoView.m */,
-				DCA8167B1BF3504C00BEBB4C /* CaptureVideoSheetView.h */,
-				DCA8167C1BF3504C00BEBB4C /* CaptureVideoSheetView.m */,
 				DCA816631BF1D66A00BEBB4C /* BViewController.h */,
 				DCA816641BF1D66A00BEBB4C /* BViewController.m */,
 				DC3A50121BF99C940089B699 /* CaptureVideoImages */,
@@ -197,19 +193,6 @@
 			path = CaptureVideoControllerUITests;
 			sourceTree = "<group>";
 		};
-		DC37FEC11BF1016C002DC944 /* CaptureVideoController */ = {
-			isa = PBXGroup;
-			children = (
-				DC37FEC21BF10186002DC944 /* CaptureVideoController.h */,
-				DC37FEC31BF10186002DC944 /* CaptureVideoController.m */,
-				DC37FEC51BF10747002DC944 /* CaptureVideoPreView.h */,
-				DC37FEC61BF10747002DC944 /* CaptureVideoPreView.m */,
-				DC3A50191BFB078A0089B699 /* UIImage+CaptureImageEffects.h */,
-				DC3A501A1BFB078A0089B699 /* UIImage+CaptureImageEffects.m */,
-			);
-			path = CaptureVideoController;
-			sourceTree = "<group>";
-		};
 		DC3A50121BF99C940089B699 /* CaptureVideoImages */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +224,31 @@
 				DCA816741BF338D000BEBB4C /* PQProgressView.m */,
 			);
 			path = PQPlayer;
+			sourceTree = "<group>";
+		};
+		DCE04AB41BFC5B6C00C84E93 /* CaptureVideo */ = {
+			isa = PBXGroup;
+			children = (
+				DCE04AB51BFC5B6C00C84E93 /* CaptureVideoController */,
+				DCE04ABA1BFC5B6C00C84E93 /* CaptureVideoSheetView.h */,
+				DCE04ABB1BFC5B6C00C84E93 /* CaptureVideoSheetView.m */,
+				DCE04ABC1BFC5B6C00C84E93 /* CaptureVideoView.h */,
+				DCE04ABD1BFC5B6C00C84E93 /* CaptureVideoView.m */,
+				DCE04ABE1BFC5B6C00C84E93 /* UIImage+CaptureImageEffects.h */,
+				DCE04ABF1BFC5B6C00C84E93 /* UIImage+CaptureImageEffects.m */,
+			);
+			path = CaptureVideo;
+			sourceTree = "<group>";
+		};
+		DCE04AB51BFC5B6C00C84E93 /* CaptureVideoController */ = {
+			isa = PBXGroup;
+			children = (
+				DCE04AB61BFC5B6C00C84E93 /* CaptureVideoController.h */,
+				DCE04AB71BFC5B6C00C84E93 /* CaptureVideoController.m */,
+				DCE04AB81BFC5B6C00C84E93 /* CaptureVideoPreView.h */,
+				DCE04AB91BFC5B6C00C84E93 /* CaptureVideoPreView.m */,
+			);
+			path = CaptureVideoController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -379,20 +387,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCA816651BF1D66A00BEBB4C /* BViewController.m in Sources */,
+				DCE04AC11BFC5B6C00C84E93 /* CaptureVideoPreView.m in Sources */,
 				DCA816771BF338D000BEBB4C /* PQPlayerControl.m in Sources */,
+				DCE04AC31BFC5B6C00C84E93 /* CaptureVideoView.m in Sources */,
 				DCA8167A1BF338D000BEBB4C /* PQProgressView.m in Sources */,
-				DCA8167D1BF3504C00BEBB4C /* CaptureVideoSheetView.m in Sources */,
 				DCA816781BF338D000BEBB4C /* PQPlayerNavBar.m in Sources */,
 				DCA816761BF338D000BEBB4C /* PQMoviePlayerController.m in Sources */,
 				DC37FE961BF10129002DC944 /* ViewController.m in Sources */,
+				DCE04AC21BFC5B6C00C84E93 /* CaptureVideoSheetView.m in Sources */,
+				DCE04AC01BFC5B6C00C84E93 /* CaptureVideoController.m in Sources */,
 				DCA816751BF338D000BEBB4C /* PQActivityIndicatorView.m in Sources */,
 				DCA816791BF338D000BEBB4C /* PQPlayerView.m in Sources */,
-				DC37FEC71BF10747002DC944 /* CaptureVideoPreView.m in Sources */,
 				DC37FE931BF10129002DC944 /* AppDelegate.m in Sources */,
-				DC3A501B1BFB078A0089B699 /* UIImage+CaptureImageEffects.m in Sources */,
-				DC37FEC41BF10186002DC944 /* CaptureVideoController.m in Sources */,
 				DC37FE901BF10129002DC944 /* main.m in Sources */,
-				DCA816621BF1A02000BEBB4C /* CaptureVideoView.m in Sources */,
+				DCE04AC41BFC5B6C00C84E93 /* UIImage+CaptureImageEffects.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
